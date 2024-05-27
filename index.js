@@ -12,7 +12,8 @@ const fileUpload = require("express-fileupload");
 
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost/test_my_database")
+  // .connect("mongodb://localhost/test_my_database")
+  .connect("mongodb+srv://hanhdoan1999:vD8RmOPtXfgl5Rgh@mongo-test.rukpn38.mongodb.net/test_my_database")
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -67,12 +68,6 @@ app.get("/contact", (req, res) => {
 
 app.get("/", homeController);
 
-app.post("/posts/store", authMiddleware, storePostController);
-
-app.get("/post/:id", getPostController);
-
-app.get('/posts/new', authMiddleware, newPostController)
-
 app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController)
 
 app.post("/users/register", redirectIfAuthenticatedMiddleware, storeUserController)
@@ -80,6 +75,12 @@ app.post("/users/register", redirectIfAuthenticatedMiddleware, storeUserControll
 app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
 
 app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
+
+app.post("/posts/store", authMiddleware, storePostController);
+
+app.get("/post/:id", getPostController);
+
+app.get('/posts/new', authMiddleware, newPostController)
 
 app.get('/auth/logout', logoutController)
 
